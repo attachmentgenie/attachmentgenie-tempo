@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+provisioner:
+  manifest: init.pp
+  manifests_path: examples
+  name: puppet_apply
+  require_chef_for_busser: false
+  require_puppet_omnibus: true
+verifier:
+  name: inspec
+  suite_name: default
+platforms:
+  - name: ubuntu-14.04
+  - name: ubuntu-16.04
+  - name: debian-8.10
+  - name: debian-9.3
+  - name: centos-6.9
+  - name: centos-7.4
+suites:
+  - name: puppet5
