@@ -1,21 +1,20 @@
 require 'spec_helper'
-describe 'example' do
+describe 'tempo' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts }
 
       context 'with defaults for all parameters' do
-        it { is_expected.to contain_class('example') }
-        it { is_expected.to contain_class('example::params') }
-        it { is_expected.to contain_anchor('example::begin').that_comes_before('Class[example::Install]') }
-        it { is_expected.to contain_class('example::install').that_comes_before('Class[example::Config]') }
-        it { is_expected.to contain_class('example::config').that_notifies('Class[example::Service]') }
-        it { is_expected.to contain_class('example::service').that_comes_before('Anchor[example::end]') }
-        it { is_expected.to contain_anchor('example::end') }
-        it { is_expected.to contain_group('example') }
-        it { is_expected.to contain_package('example') }
-        it { is_expected.to contain_service('example') }
-        it { is_expected.to contain_user('example') }
+        it { is_expected.to contain_class('tempo') }
+        it { is_expected.to contain_anchor('tempo::begin').that_comes_before('Class[tempo::Install]') }
+        it { is_expected.to contain_class('tempo::install').that_comes_before('Class[tempo::Config]') }
+        it { is_expected.to contain_class('tempo::config').that_notifies('Class[tempo::Service]') }
+        it { is_expected.to contain_class('tempo::service').that_comes_before('Anchor[tempo::end]') }
+        it { is_expected.to contain_anchor('tempo::end') }
+        it { is_expected.to contain_group('tempo') }
+        it { is_expected.to contain_file('/usr/local/bin/tempo') }
+        it { is_expected.to contain_service('tempo') }
+        it { is_expected.to contain_user('tempo') }
       end
     end
   end

@@ -1,0 +1,13 @@
+[Unit]
+Description=Tempo, Distributed tracing tool
+Documentation=https://github.com/grafana/tempo
+
+[Service]
+Type=simple
+User=<%= $tempo::user %>
+ExecStart=<%= $tempo::bin_dir %>/tempo -config.file <%= $tempo::config_dir %>/config.yaml
+Restart=always
+RestartSec=30s
+
+[Install]
+WantedBy=multi-user.target

@@ -1,41 +1,48 @@
-# Class to install and configure example.
+# Class to install and configure tempo.
 #
-# Use this module to install and configure example.
+# Use this module to install and configure tempo.
 #
-# @example Declaring the class
-#   include ::example
+# @tempo Declaring the class
+#   include ::tempo
 #
-# @param archive_source Location of example binary release.
-# @param group Group that owns example files.
-# @param install_dir Location of example binary release.
-# @param install_method How to install example.
-# @param manage_repo Manage the example repo.
-# @param manage_service Manage the example service.
-# @param manage_user Manage example user and group.
+# @param group Group that owns tempo files.
+# @param bin_dir Location of tempo binary release.
+# @param install_method How to install tempo.
+# @param manage_repo Manage the tempo repo.
+# @param manage_service Manage the tempo service.
+# @param manage_user Manage tempo user and group.
 # @param package_name Name of package to install.
-# @param package_version Version of example to install.
+# @param package_version Version of tempo to install.
 # @param service_name Name of service to manage.
 # @param service_provider Init system that is used.
 # @param service_ensure The state of the service.
-# @param user User that owns example files.
-class example (
-  Optional[String] $archive_source = $::example::params::archive_source,
-  String $group = $::example::params::group,
-  String $install_dir = $::example::params::install_dir,
-  Enum['archive','package'] $install_method = $::example::params::install_method,
-  Boolean $manage_repo = $::example::params::manage_repo,
-  Boolean $manage_service = $::example::params::manage_service,
-  Boolean $manage_user = $::example::params::manage_user,
-  String $package_name = $::example::params::package_name,
-  String $package_version = $::example::params::package_version,
-  String $service_name = $::example::params::service_name,
-  String $service_provider = $::example::params::service_provider,
-  Enum['running','stopped'] $service_ensure = $::example::params::service_ensure,
-  String $user = $::example::params::user,
-) inherits example::params {
-  anchor { 'example::begin': }
-  -> class{ '::example::install': }
-  -> class{ '::example::config': }
-  ~> class{ '::example::service': }
-  -> anchor { 'example::end': }
+# @param user User that owns tempo files.
+class tempo (
+  Stdlib::Absolutepath $bin_dir,
+  Stdlib::Absolutepath $config_dir,
+  Stdlib::Absolutepath $data_dir,
+  String[1] $group,
+  Enum['archive','package'] $install_method ,
+  Boolean $manage_service,
+  Boolean $manage_user,
+  String[1] $package_name,
+  String[1] $package_version,
+  String[1] $service_name,
+  String[1] $service_provider,
+  Enum['running','stopped'] $service_ensure,
+  String[1] $user,
+  String[1] $version,
+  Optional[Boolean] $auth_enabled = undef,
+  Optional[Hash] $compactor_config_hash = undef,
+  Optional[Hash] $distributor_config_hash = undef,
+  Optional[Hash] $ingester_config_hash = undef,
+  Optional[Hash] $memberlist_config_hash = undef,
+  Optional[Hash] $server_config_hash = undef,
+  Optional[Hash] $storage_config_hash = undef,
+) {
+  anchor { 'tempo::begin': }
+  -> class{ '::tempo::install': }
+  -> class{ '::tempo::config': }
+  ~> class{ '::tempo::service': }
+  -> anchor { 'tempo::end': }
 }

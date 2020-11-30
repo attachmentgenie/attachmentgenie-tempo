@@ -1,58 +1,80 @@
-# Class to install example.
+# @summary A short summary of the purpose of this class
 #
-# Dont include this class directly.
+# A description of what this class does
 #
-class example::install {
-  if $::example::manage_user {
-    user { 'example':
-      ensure => present,
-      home   => $::example::install_dir,
-      name   => $::example::user,
-    }
-    group { 'example':
-      ensure => present,
-      name   => $::example::group
-    }
-  }
-  case $::example::install_method {
-    'package': {
-      if $::example::manage_repo {
-        class { 'example::repo': }
-      }
-      package { 'example':
-        ensure => $::example::package_version,
-        name   => $::example::package_name,
-      }
-    }
+# @example
+#   include tempo::install
+class tempo::install {
+  case $::tempo::install_method {
     'archive': {
-      file { 'example install dir':
-        ensure => directory,
-        group  => $::example::group,
-        owner  => $::example::user,
-        path   => $::example::install_dir,
-      }
-      if $::example::manage_user {
-        File[$::example::install_dir] {
-          require => [Group['example'],User['example']],
+      $release_file_name = "tempo_${tempo::version}_linux_amd64"
+      $version_dir = "${tempo::data_dir}/tempo-${tempo::version}"
+
+      $binary_path = "${version_dir}/${release_file_name}"
+
+      if $::tempo::manage_user {
+        user { 'tempo':
+          ensure => present,
+          home   => $tempo::data_dir,
+          name   => $::tempo::user,
+        }
+        group { 'tempo':
+          ensure => present,
+          name   => $::tempo::group
+        }
+
+        File[$version_dir] {
+          require => [Group['tempo'],User['tempo']],
         }
       }
 
-      archive { 'example archive':
-        cleanup         => true,
-        creates         => "${::example::install_dir}/bin",
-        extract         => true,
-        extract_command => 'tar xfz %s --strip-components=1',
-        extract_path    => $::example::install_dir,
-        path            => '/tmp/example.tar.gz',
-        source          => $::example::archive_source,
-        user            => $::example::user,
-        group           => $::example::group,
-        require         => File['example install dir']
+      file { [$tempo::data_dir, $version_dir]:
+        ensure => directory,
+        group  => $::tempo::group,
+        owner  => $::tempo::user,
+      }
+      -> archive { "${binary_path}.tar.gz":
+        ensure       => present,
+        source       => "https://github.com/grafana/tempo/releases/download/v${tempo::version}/${release_file_name}.tar.gz",
+        extract      => true,
+        extract_path => $version_dir,
+        creates      => "${version_dir}/tempo",
+        cleanup      => false,
+        user         => $::tempo::user,
+        group        => $::tempo::group,
       }
 
+      file {
+        "${version_dir}/tempo":
+          ensure  => file,
+          group   => $::tempo::group,
+          mode    => '0755',
+          owner   => $::tempo::user,
+          require => Archive["${binary_path}.tar.gz"],
+        ;
+        "${tempo::bin_dir}/tempo":
+          ensure  => link,
+          group   => $::tempo::group,
+          owner   => $::tempo::user,
+          target  => "${version_dir}/tempo",
+          require => File["${version_dir}/tempo"],
+        ;
+      }
+
+      if $::tempo::manage_service {
+        File["${tempo::bin_dir}/tempo"] {
+          notify => Service['tempo'],
+        }
+      }
+    }
+    'package': {
+      package { 'tempo':
+        ensure => $::tempo::package_version,
+        name   => $::tempo::package_name,
+      }
     }
     default: {
-      fail("Installation method ${::example::install_method} not supported")
+      fail("Installation method ${::tempo::install_method} not supported")
     }
   }
 }

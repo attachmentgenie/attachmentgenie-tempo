@@ -1,19 +1,8 @@
 require 'spec_helper'
-describe 'example' do
+describe 'tempo' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) { facts }
-
-      context 'with archive_source set to special.tar.gz' do
-        let(:params) do
-          {
-            archive_source: 'special.tar.gz',
-            install_method: 'archive',
-          }
-        end
-
-        it { is_expected.to contain_archive('example archive').with_source('special.tar.gz') }
-      end
 
       context 'with group set to myspecialgroup' do
         let(:params) do
@@ -23,163 +12,116 @@ describe 'example' do
           }
         end
 
-        it { is_expected.to contain_group('example').with_name('myspecialgroup') }
+        it { is_expected.to contain_group('tempo').with_name('myspecialgroup') }
       end
 
       context 'with group set to myspecialgroup and install_method set to archive' do
         let(:params) do
           {
             group: 'myspecialgroup',
-            install_dir: '/opt/example',
+            bin_dir: '/opt/tempo',
             install_method: 'archive',
             manage_user: true,
           }
         end
 
-        it { is_expected.to contain_file('example install dir').with_group('myspecialgroup') }
-        it { is_expected.to contain_archive('example archive').with_group('myspecialgroup') }
+        it { is_expected.to contain_file('/opt/tempo/tempo').with_group('myspecialgroup') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz').with_group('myspecialgroup') }
       end
 
       context 'with group set to myspecialgroup and install_method set to archive and manage_user set to true' do
         let(:params) do
           {
             group: 'myspecialgroup',
-            install_dir: '/opt/example',
+            bin_dir: '/opt/tempo',
             install_method: 'archive',
             manage_user: true,
           }
         end
 
-        it { is_expected.to contain_file('example install dir').with_group('myspecialgroup').that_requires('Group[myspecialgroup]') }
-        it { is_expected.to contain_archive('example archive').with_group('myspecialgroup') }
+        it { is_expected.to contain_file('/opt/tempo/tempo').with_group('myspecialgroup').that_requires('Group[myspecialgroup]') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz').with_group('myspecialgroup') }
       end
 
       context 'with group set to myspecialgroup and install_method set to archive and manage_user set to false' do
         let(:params) do
           {
             group: 'myspecialgroup',
-            install_dir: '/opt/example',
+            bin_dir: '/opt/tempo',
             install_method: 'archive',
             manage_user: false,
           }
         end
 
-        it { is_expected.to contain_file('example install dir').with_group('myspecialgroup').that_requires(nil) }
-        it { is_expected.to contain_archive('example archive').with_group('myspecialgroup') }
+        it { is_expected.to contain_file('/opt/tempo/tempo').with_group('myspecialgroup').that_requires(nil) }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz').with_group('myspecialgroup') }
       end
 
-      context 'with group set to myspecialgroup and service_provider set to debian' do
+      context 'with bin_dir set to /opt/special' do
         let(:params) do
           {
-            group: 'myspecialgroup',
-            install_dir: '/opt/example',
-            manage_service: true,
-            manage_user: true,
-            service_name: 'example',
-            service_provider: 'debian',
-          }
-        end
-
-        it { is_expected.to contain_file('example service file').with_group('myspecialgroup') }
-      end
-
-      context 'with group set to myspecialgroup and service_provider set to init' do
-        let(:params) do
-          {
-            group: 'myspecialgroup',
-            install_dir: '/opt/example',
-            manage_service: true,
-            manage_user: true,
-            service_name: 'example',
-            service_provider: 'init',
-          }
-        end
-
-        it { is_expected.to contain_file('example service file').with_group('myspecialgroup') }
-      end
-
-      context 'with group set to myspecialgroup and service_provider set to redhat' do
-        let(:params) do
-          {
-            group: 'myspecialgroup',
-            install_dir: '/opt/example',
-            manage_service: true,
-            manage_user: true,
-            service_name: 'example',
-            service_provider: 'redhat',
-          }
-        end
-
-        it { is_expected.to contain_file('example service file').with_group('myspecialgroup') }
-      end
-
-      context 'with install_dir set to /opt/special' do
-        let(:params) do
-          {
-            install_dir: '/opt/special',
+            bin_dir: '/opt/special',
             install_method: 'archive',
           }
         end
 
-        it { is_expected.to contain_file('example install dir').with_path('/opt/special') }
-        it { is_expected.to contain_archive('example archive').with_creates('/opt/special/bin') }
-        it { is_expected.to contain_archive('example archive').with_extract_path('/opt/special') }
-        it { is_expected.to contain_archive('example archive').that_requires('File[/opt/special]') }
+        it { is_expected.to contain_file('/opt/special/tempo') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz').with_creates('/var/lib/tempo/tempo-0.3.0/tempo') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz').with_extract_path('/var/lib/tempo/tempo-0.3.0') }
       end
 
-      context 'with install_dir set to /opt/special and manage_user set to true' do
+      context 'with data_dir set to /opt/special and manage_user set to true' do
         let(:params) do
           {
-            install_dir: '/opt/special',
+            data_dir: '/opt/special',
             install_method: 'archive',
             manage_user: true,
-            user: 'example',
+            user: 'tempo',
           }
         end
 
-        it { is_expected.to contain_user('example').with_home('/opt/special') }
-        it { is_expected.to contain_file('example install dir').with_path('/opt/special').that_requires('User[example]') }
+        it { is_expected.to contain_user('tempo').with_home('/opt/special') }
+        it { is_expected.to contain_file('/opt/special') }
       end
 
       context 'with install_method set to archive' do
         let(:params) do
           {
-            install_dir: '/opt/example',
+            data_dir: '/opt/tempo',
             install_method: 'archive',
-            package_name: 'example',
+            package_name: 'tempo',
           }
         end
 
-        it { is_expected.to contain_file('example install dir').that_comes_before('Archive[example archive]') }
-        it { is_expected.to contain_archive('example archive') }
-        it { is_expected.not_to contain_package('example') }
+        it { is_expected.to contain_archive('/opt/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz') }
+        it { is_expected.not_to contain_package('tempo') }
       end
 
       context 'with install_method set to package' do
         let(:params) do
           {
-            install_dir: '/opt/example',
+            bin_dir: '/opt/tempo',
             install_method: 'package',
-            package_name: 'example',
+            package_name: 'tempo',
           }
         end
 
-        it { is_expected.not_to contain_file('example install dir').that_comes_before('Archive[example archive]') }
-        it { is_expected.not_to contain_archive('example archive') }
-        it { is_expected.to contain_package('example') }
+        it { is_expected.not_to contain_file('/opt/tempo/tempo').that_comes_before('Archive[tempo archive]') }
+        it { is_expected.not_to contain_archive('/var/lib/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz') }
+        it { is_expected.to contain_package('tempo') }
       end
 
       context 'with manage_user set to true' do
         let(:params) do
           {
-            group: 'example',
+            group: 'tempo',
             manage_user: true,
-            user: 'example',
+            user: 'tempo',
           }
         end
 
-        it { is_expected.to contain_user('example') }
-        it { is_expected.to contain_group('example') }
+        it { is_expected.to contain_user('tempo') }
+        it { is_expected.to contain_group('tempo') }
       end
 
       context 'with manage_user set to false' do
@@ -189,8 +131,8 @@ describe 'example' do
           }
         end
 
-        it { is_expected.not_to contain_user('example') }
-        it { is_expected.not_to contain_group('example') }
+        it { is_expected.not_to contain_user('tempo') }
+        it { is_expected.not_to contain_group('tempo') }
       end
 
       context 'with package_name set to specialpackage' do
@@ -201,7 +143,7 @@ describe 'example' do
           }
         end
 
-        it { is_expected.to contain_package('example').with_name('specialpackage') }
+        it { is_expected.to contain_package('tempo').with_name('specialpackage') }
       end
 
       context 'with package_name set to specialpackage and manage_service set to true' do
@@ -210,23 +152,23 @@ describe 'example' do
             install_method: 'package',
             manage_service: true,
             package_name: 'specialpackage',
-            service_name: 'example',
+            service_name: 'tempo',
           }
         end
 
-        it { is_expected.to contain_package('example').with_name('specialpackage') }
+        it { is_expected.to contain_package('tempo').with_name('specialpackage') }
       end
 
       context 'with package_version set to 42.42.42' do
         let(:params) do
           {
             install_method: 'package',
-            package_name: 'example',
+            package_name: 'tempo',
             package_version: '42.42.42',
           }
         end
 
-        it { is_expected.to contain_package('example').with_ensure('42.42.42') }
+        it { is_expected.to contain_package('tempo').with_ensure('42.42.42') }
       end
 
       context 'with user set to myspecialuser' do
@@ -237,64 +179,49 @@ describe 'example' do
           }
         end
 
-        it { is_expected.to contain_user('example').with_name('myspecialuser') }
+        it { is_expected.to contain_user('tempo').with_name('myspecialuser') }
       end
 
       context 'with user set to myspecialuser and install_method set to archive' do
         let(:params) do
           {
-            install_dir: '/opt/example',
+            bin_dir: '/opt/tempo',
             install_method: 'archive',
             manage_user: true,
             user: 'myspecialuser',
           }
         end
 
-        it { is_expected.to contain_file('example install dir').with_owner('myspecialuser') }
-        it { is_expected.to contain_archive('example archive').with_user('myspecialuser') }
+        it { is_expected.to contain_file('/opt/tempo/tempo').with_owner('myspecialuser') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz').with_user('myspecialuser') }
       end
 
       context 'with user set to myspecialuser and install_method set to archive and manage_user set to true' do
         let(:params) do
           {
-            install_dir: '/opt/example',
+            bin_dir: '/opt/tempo',
             install_method: 'archive',
             manage_user: true,
             user: 'myspecialuser',
           }
         end
 
-        it { is_expected.to contain_file('example install dir').with_owner('myspecialuser').that_requires('User[myspecialuser]') }
-        it { is_expected.to contain_archive('example archive').with_user('myspecialuser') }
+        it { is_expected.to contain_file('/opt/tempo/tempo').with_owner('myspecialuser').that_requires('User[myspecialuser]') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz').with_user('myspecialuser') }
       end
 
       context 'with user set to myspecialuser and install_method set to archive and manage_user set to false' do
         let(:params) do
           {
-            install_dir: '/opt/example',
+            bin_dir: '/opt/tempo',
             install_method: 'archive',
             manage_user: false,
             user: 'myspecialuser',
           }
         end
 
-        it { is_expected.to contain_file('example install dir').with_owner('myspecialuser').that_requires(nil) }
-        it { is_expected.to contain_archive('example archive').with_user('myspecialuser') }
-      end
-
-      context 'with user set to myspecialuser and service_provider set to debian' do
-        let(:params) do
-          {
-            user: 'myspecialuser',
-            install_dir: '/opt/example',
-            manage_user: true,
-            manage_service: true,
-            service_name: 'example',
-            service_provider: 'debian',
-          }
-        end
-
-        it { is_expected.to contain_file('example service file').with_path('/etc/init.d/example').with_owner('myspecialuser') }
+        it { is_expected.to contain_file('/opt/tempo/tempo').with_owner('myspecialuser').that_requires(nil) }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-0.3.0/tempo_0.3.0_linux_amd64.tar.gz').with_user('myspecialuser') }
       end
     end
   end

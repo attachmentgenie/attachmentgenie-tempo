@@ -9,7 +9,4 @@
 # Learn more about module testing here:
 # http://docs.puppetlabs.com/guides/tests_smoke.html
 #
-class { '::example':
-  archive_source => 'http://apache.xl-mirror.nl/example/example-1.1.3/example-1.1.3-bin-hadoop27-scala_2.11.tgz',
-  install_method => 'archive',
-}
+class { '::tempo': }

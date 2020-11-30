@@ -1,7 +1,14 @@
+# This file can be used to install module depdencies for unit testing
+# See https://github.com/puppetlabs/puppetlabs_spec_helper#using-fixtures for details
+---
 fixtures:
+  forge_modules:
+    archive: 'puppet/archive'
+    concat: 'puppetlabs/concat'
+    promtail: 'grafana/promtail'
+    systemd: 'camptocamp/systemd'
+    stdlib: 'puppetlabs/stdlib'
   repositories:
-    archive: "https://github.com/voxpupuli/puppet-archive.git"
-    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
-    systemd: "https://github.com/camptocamp/puppet-systemd.git"
-  symlinks:
-    "example": "#{source_dir}"
+    facts: 'https://github.com/puppetlabs/puppetlabs-facts.git'
+    puppet_agent: 'https://github.com/puppetlabs/puppetlabs-puppet_agent.git'
+    provision: 'https://github.com/puppetlabs/provision.git'

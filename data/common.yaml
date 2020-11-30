@@ -1,1 +1,16 @@
 ---
+tempo::group: 'tempo'
+tempo::bin_dir: '/usr/local/bin'
+tempo::config_dir: '/etc/tempo'
+tempo::data_dir: '/var/lib/tempo'
+tempo::install_method: archive
+tempo::manage_service: true
+tempo::manage_user: true
+tempo::package_name: 'tempo'
+tempo::package_version: 'present'
+tempo::service_name: 'tempo'
+tempo::service_provider: 'systemd'
+tempo::service_ensure: 'running'
+tempo::user: 'tempo'
+tempo::version: '0.3.0'
+...

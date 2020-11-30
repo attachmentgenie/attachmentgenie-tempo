@@ -1,48 +1,40 @@
-# Class to manage the example service.
+# @summary A short summary of the purpose of this class
 #
-# Dont include this class directly.
+# A description of what this class does
 #
-class example::service {
-  if $::example::manage_service {
-    case $::example::service_provider {
-      'debian','init','redhat': {
-        file { 'example service file':
-          path    => "/etc/init.d/${::example::service_name}",
-          content => template('example/example.init.erb'),
-          group   => $::example::group,
-          mode    => '0755',
-          notify  => Service['example'],
-          owner   => $::example::user,
-        }
-      }
+# @example
+#   include tempo::service
+class tempo::service {
+  if $::tempo::manage_service {
+    case $::tempo::service_provider {
       'systemd': {
-        ::systemd::unit_file { "${::example::service_name}.service":
-          content => template('example/example.service.erb'),
-          before  => Service['example'],
+        ::systemd::unit_file { "${::tempo::service_name}.service":
+          content => epp('tempo/tempo.service.epp'),
+          before  => Service['tempo'],
         }
       }
       default: {
-        fail("Service provider ${::example::service_provider} not supported")
+        fail("Service provider ${::tempo::service_provider} not supported")
       }
     }
 
-    case $::example::install_method {
+    case $::tempo::install_method {
       'archive': {}
       'package': {
-        Service['example'] {
-          subscribe => Package['example'],
+        Service['tempo'] {
+          subscribe => Package['tempo'],
         }
       }
       default: {
-        fail("Installation method ${::example::install_method} not supported")
+        fail("Installation method ${::tempo::install_method} not supported")
       }
     }
 
-    service { 'example':
-      ensure   => $::example::service_ensure,
+    service { 'tempo':
+      ensure   => $::tempo::service_ensure,
       enable   => true,
-      name     => $::example::service_name,
-      provider => $::example::service_provider,
+      name     => $::tempo::service_name,
+      provider => $::tempo::service_provider,
     }
   }
 }

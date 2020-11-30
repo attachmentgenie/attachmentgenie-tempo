@@ -3,7 +3,7 @@ driver:
   name: vagrant
 provisioner:
   manifest: init.pp
-  manifests_path: examples
+  manifests_path: tempos
   name: puppet_apply
   require_chef_for_busser: false
   require_puppet_omnibus: true

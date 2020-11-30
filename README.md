@@ -1,13 +1,13 @@
-# example
+# tempo
 
 #### Table of Contents
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with example](#setup)
-    * [What example affects](#what-example-affects)
+3. [Setup - The basics of getting started with tempo](#setup)
+    * [What tempo affects](#what-tempo-affects)
     * [Setup requirements](#setup-requirements)
-    * [Beginning with example](#beginning-with-example)
+    * [Beginning with tempo](#beginning-with-tempo)
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
@@ -31,7 +31,7 @@ management, etc.) this is the time to mention it.
 
 ## Setup
 
-### What example affects
+### What tempo affects
 
 * A list of files, packages, services, or operations that the module will alter,
   impact, or execute on the system it's installed on.
@@ -43,13 +43,13 @@ management, etc.) this is the time to mention it.
 If your module requires anything extra before setting up (pluginsync enabled,
 etc.), mention it here.
 
-### Beginning with example
+### Beginning with tempo
 
 The very basic steps needed for a user to get the module up and running.
 
 If your most recent release breaks compatibility or requires particular steps
 for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+(For an tempo, see http://forge.puppetlabs.com/puppetlabs/firewall).
 
 ## Usage
 
