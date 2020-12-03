@@ -1,7 +1,6 @@
-# Class to configure tempo.
+# @summary A short summary of the purpose of this class
 #
-# Dont include this class directly.
-#
+# @api private
 class tempo::config {
   $config_file = "${tempo::config_dir}/config.yaml"
 

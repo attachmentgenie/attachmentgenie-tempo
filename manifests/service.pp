@@ -1,9 +1,6 @@
 # @summary A short summary of the purpose of this class
 #
-# A description of what this class does
-#
-# @example
-#   include tempo::service
+# @api private
 class tempo::service {
   if $::tempo::manage_service {
     case $::tempo::service_provider {

@@ -1,67 +1,37 @@
-# tempo
+# Loki
 
-#### Table of Contents
+[![](https://img.shields.io/puppetforge/pdk-version/attachmentgenie/tempo.svg?style=popout)](https://forge.puppetlabs.com/attachmentgenie/tempo)
+[![](https://img.shields.io/puppetforge/v/attachmentgenie/tempo.svg?style=popout)](https://forge.puppetlabs.com/attachmentgenie/tempo)
+[![](https://img.shields.io/puppetforge/dt/attachmentgenie/tempo.svg?style=popout)](https://forge.puppetlabs.com/attachmentgenie/tempo)
+[![](https://travis-ci.org/attachmentgenie/attachmentgenie-tempo.svg?branch=master)](https://travis-ci.org/attachmentgenie/attachmentgenie-tempo)
+[![License](https://img.shields.io/github/license/attachmentgenie/attachmentgenie-tempo?stype=popout)](https://github.com/attachmentgenie/attachmentgenie-tempo/blob/master/LICENSE)
 
-1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with tempo](#setup)
-    * [What tempo affects](#what-tempo-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with tempo](#beginning-with-tempo)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
+Deploy and configure attachmentgenie's Loki on a node.
 
-## Overview
+- [Description](#description)
+- [Usage](#usage)
+- [Reference](#reference)
+- [Changelog](#changelog)
+- [Limitations](#limitations)
+- [Development](#development)
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+## Description
 
-## Module Description
+[Loki](https://grafana.com/oss/tempo)
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
-
-## Setup
-
-### What tempo affects
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-### Beginning with tempo
-
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an tempo, see http://forge.puppetlabs.com/puppetlabs/firewall).
+Grafana Tempo is an open source, easy-to-use and high-scale distributed tracing backend. Tempo is cost-efficient, requiring only object storage to operate, and is deeply integrated with Grafana, Prometheus, and Loki. Tempo can be used with any of the open source tracing protocols, including Jaeger, Zipkin, and OpenTelemetry.
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+All options and configuration can be done through interacting with the parameters
+on the main example class.
+These are now documented via [Puppet Strings](https://github.com/puppetlabs/puppet-strings)
+
+You can view example usage in [REFERENCE](REFERENCE.md).
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+See [REFERENCE](REFERENCE.md).
 
 ## Limitations
 
@@ -71,12 +41,14 @@ This is where you list OS compatibility, version compatibility, etc.
 
 ### Running tests
 
-This project contains tests for both rspec-puppet and test kitchen to verify functionality. For detailed information on using these tools, please see their respective documentation.
+This project contains tests for both rspec-puppet and litmus to verify functionality. For detailed information on using these tools, please see their respective documentation.
 
 #### Testing quickstart:
 
 ```
-gem install bundler
-bundle install
-bundle exec rake guard
-bundle exec kitchen test
+pdk bundle install
+pdk bundle exec rake 'litmus:provision_list[puppet6]'
+pdk bundle exec rake 'litmus:install_agent[puppet6]'
+pdk bundle exec rake litmus:install_module
+pdk bundle exec rake litmus:acceptance:parallel
+pdk bundle exec rake litmus:tear_down

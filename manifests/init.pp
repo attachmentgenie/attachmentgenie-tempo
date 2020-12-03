@@ -2,7 +2,7 @@
 #
 # Use this module to install and configure tempo.
 #
-# @tempo Declaring the class
+# @example Declaring the class
 #   include ::tempo
 #
 # @param group Group that owns tempo files.
