@@ -12,5 +12,5 @@ tempo::service_name: 'tempo'
 tempo::service_provider: 'systemd'
 tempo::service_ensure: 'running'
 tempo::user: 'tempo'
-tempo::version: '0.3.0'
+tempo::version: '0.5.0'
 ...
