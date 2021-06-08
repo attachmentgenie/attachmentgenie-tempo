@@ -23,16 +23,11 @@ class tempo::config {
     order   => '01',
   }
 
-  # Enables authentication through the X-Scope-OrgID header, which must be present
-  # if true. If false, the OrgID will always be set to "fake".
-  # [auth_enabled: <boolean> | default = true]
-  $_auth_enabled = $tempo::auth_enabled ? {
-    undef          => true,
-    default        => $tempo::auth_enabled,
-  }
-  concat::fragment { 'tempo_config_auth_enabled':
+  # Optional. Setting to true enables multitenancy and requires X-Scope-OrgID header on all requests.
+  # [multitenancy_enabled: <bool> | default = false]
+  concat::fragment { 'tempo_config_multitenancy_enabled':
     target  => $config_file,
-    content => "auth_enabled: ${_auth_enabled}\n",
+    content => "${tempo::multitenancy_key}: ${tempo::multitenancy_enabled}\n",
     order   => '03',
   }
 
@@ -43,17 +38,6 @@ class tempo::config {
       target  => $config_file,
       content => $tempo::server_config_hash.promtail::to_yaml.promtail::strip_yaml_header,
       order   => '10',
-    }
-  }
-
-  # Configures the compactor and how the compactor will register itself to a
-  # key value store.
-  # [compactor: <compactor_config>]
-  if $tempo::compactor_config_hash {
-    concat::fragment { 'tempo_compactor_config':
-      target  => $config_file,
-      content => $tempo::compactor_config_hash.promtail::to_yaml.promtail::strip_yaml_header,
-      order   => '11',
     }
   }
 
@@ -78,14 +62,36 @@ class tempo::config {
     }
   }
 
-  # Configures the memberlist and how the memberlist will register itself to a
+  # Configures the storage and how the storage will register itself to a
   # key value store.
-  # [memberlist: <memberlist_config>]
-  if $tempo::memberlist_config_hash {
-    concat::fragment { 'tempo_memberlist_config':
+  # [query_frontend: <query_frontend_config>]
+  if $tempo::query_frontend_config_hash {
+    concat::fragment { 'tempo_query_frontend_config':
       target  => $config_file,
-      content => $tempo::memberlist_config_hash.promtail::to_yaml.promtail::strip_yaml_header,
-      order   => '14',
+      content => $tempo::query_frontend_config_hash.promtail::to_yaml.promtail::strip_yaml_header,
+      order   => '15',
+    }
+  }
+
+  # Configures the storage and how the storage will register itself to a
+  # key value store.
+  # [querier: <querier_config>]
+  if $tempo::querier_config_hash {
+    concat::fragment { 'tempo_querier_config':
+      target  => $config_file,
+      content => $tempo::querier_config_hash.promtail::to_yaml.promtail::strip_yaml_header,
+      order   => '15',
+    }
+  }
+
+  # Configures the compactor and how the compactor will register itself to a
+  # key value store.
+  # [compactor: <compactor_config>]
+  if $tempo::compactor_config_hash {
+    concat::fragment { 'tempo_compactor_config':
+      target  => $config_file,
+      content => $tempo::compactor_config_hash.promtail::to_yaml.promtail::strip_yaml_header,
+      order   => '11',
     }
   }
 
@@ -97,6 +103,17 @@ class tempo::config {
       target  => $config_file,
       content => $tempo::storage_config_hash.promtail::to_yaml.promtail::strip_yaml_header,
       order   => '15',
+    }
+  }
+
+  # Configures the memberlist and how the memberlist will register itself to a
+  # key value store.
+  # [memberlist: <memberlist_config>]
+  if $tempo::memberlist_config_hash {
+    concat::fragment { 'tempo_memberlist_config':
+      target  => $config_file,
+      content => $tempo::memberlist_config_hash.promtail::to_yaml.promtail::strip_yaml_header,
+      order   => '14',
     }
   }
 }

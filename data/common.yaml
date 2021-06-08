@@ -6,11 +6,13 @@ tempo::data_dir: '/var/lib/tempo'
 tempo::install_method: archive
 tempo::manage_service: true
 tempo::manage_user: true
+tempo::multitenancy_enabled: false
+tempo::multitenancy_key: 'multitenancy_enabled'
 tempo::package_name: 'tempo'
 tempo::package_version: 'present'
 tempo::service_name: 'tempo'
 tempo::service_provider: 'systemd'
 tempo::service_ensure: 'running'
 tempo::user: 'tempo'
-tempo::version: '0.5.0'
+tempo::version: '1.0.0'
 ...

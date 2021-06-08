@@ -18,7 +18,7 @@
 
 ## Classes
 
-### `tempo`
+### <a name="tempo"></a>`tempo`
 
 Class to install and configure tempo.
 
@@ -34,149 +34,190 @@ include ::tempo
 
 #### Parameters
 
-The following parameters are available in the `tempo` class.
+The following parameters are available in the `tempo` class:
 
-##### `group`
+* [`bin_dir`](#bin_dir)
+* [`config_dir`](#config_dir)
+* [`data_dir`](#data_dir)
+* [`group`](#group)
+* [`install_method`](#install_method)
+* [`manage_service`](#manage_service)
+* [`manage_user`](#manage_user)
+* [`package_name`](#package_name)
+* [`package_version`](#package_version)
+* [`service_name`](#service_name)
+* [`service_provider`](#service_provider)
+* [`service_ensure`](#service_ensure)
+* [`user`](#user)
+* [`version`](#version)
+* [`compactor_config_hash`](#compactor_config_hash)
+* [`distributor_config_hash`](#distributor_config_hash)
+* [`ingester_config_hash`](#ingester_config_hash)
+* [`memberlist_config_hash`](#memberlist_config_hash)
+* [`multitenancy_enabled`](#multitenancy_enabled)
+* [`multitenancy_key`](#multitenancy_key)
+* [`server_config_hash`](#server_config_hash)
+* [`storage_config_hash`](#storage_config_hash)
+* [`query_frontend_config_hash`](#query_frontend_config_hash)
+* [`querier_config_hash`](#querier_config_hash)
 
-Data type: `String[1]`
-
-Group that owns tempo files.
-
-##### `bin_dir`
+##### <a name="bin_dir"></a>`bin_dir`
 
 Data type: `Stdlib::Absolutepath`
 
 Location of tempo binary release.
 
-##### `install_method`
+##### <a name="config_dir"></a>`config_dir`
+
+Data type: `Stdlib::Absolutepath`
+
+Location of tempo config files.
+
+##### <a name="data_dir"></a>`data_dir`
+
+Data type: `Stdlib::Absolutepath`
+
+Location of tempo data directories.
+
+##### <a name="group"></a>`group`
+
+Data type: `String[1]`
+
+Group that owns tempo files.
+
+##### <a name="install_method"></a>`install_method`
 
 Data type: `Enum['archive','package']`
 
 How to install tempo.
 
-##### `manage_repo`
-
-Manage the tempo repo.
-
-##### `manage_service`
+##### <a name="manage_service"></a>`manage_service`
 
 Data type: `Boolean`
 
 Manage the tempo service.
 
-##### `manage_user`
+##### <a name="manage_user"></a>`manage_user`
 
 Data type: `Boolean`
 
 Manage tempo user and group.
 
-##### `package_name`
+##### <a name="package_name"></a>`package_name`
 
 Data type: `String[1]`
 
 Name of package to install.
 
-##### `package_version`
+##### <a name="package_version"></a>`package_version`
 
 Data type: `String[1]`
 
 Version of tempo to install.
 
-##### `service_name`
+##### <a name="service_name"></a>`service_name`
 
 Data type: `String[1]`
 
 Name of service to manage.
 
-##### `service_provider`
+##### <a name="service_provider"></a>`service_provider`
 
 Data type: `String[1]`
 
 Init system that is used.
 
-##### `service_ensure`
+##### <a name="service_ensure"></a>`service_ensure`
 
 Data type: `Enum['running','stopped']`
 
 The state of the service.
 
-##### `user`
+##### <a name="user"></a>`user`
 
 Data type: `String[1]`
 
 User that owns tempo files.
 
-##### `config_dir`
-
-Data type: `Stdlib::Absolutepath`
-
-
-
-##### `data_dir`
-
-Data type: `Stdlib::Absolutepath`
-
-
-
-##### `version`
+##### <a name="version"></a>`version`
 
 Data type: `String[1]`
 
+Version of tempo to install.
 
-
-##### `auth_enabled`
-
-Data type: `Optional[Boolean]`
-
-
-
-Default value: ``undef``
-
-##### `compactor_config_hash`
+##### <a name="compactor_config_hash"></a>`compactor_config_hash`
 
 Data type: `Optional[Hash]`
 
-
-
-Default value: ``undef``
-
-##### `distributor_config_hash`
-
-Data type: `Optional[Hash]`
-
-
+Compactor config hash.
 
 Default value: ``undef``
 
-##### `ingester_config_hash`
+##### <a name="distributor_config_hash"></a>`distributor_config_hash`
 
 Data type: `Optional[Hash]`
 
-
+Distributor config hash.
 
 Default value: ``undef``
 
-##### `memberlist_config_hash`
+##### <a name="ingester_config_hash"></a>`ingester_config_hash`
 
 Data type: `Optional[Hash]`
 
-
+Ingestor config hash.
 
 Default value: ``undef``
 
-##### `server_config_hash`
+##### <a name="memberlist_config_hash"></a>`memberlist_config_hash`
 
 Data type: `Optional[Hash]`
 
-
+Memberlist config hash.
 
 Default value: ``undef``
 
-##### `storage_config_hash`
+##### <a name="multitenancy_enabled"></a>`multitenancy_enabled`
+
+Data type: `Boolean`
+
+Enable multi tenancy
+
+##### <a name="multitenancy_key"></a>`multitenancy_key`
+
+Data type: `String[1]`
+
+Key name
+
+##### <a name="server_config_hash"></a>`server_config_hash`
 
 Data type: `Optional[Hash]`
 
+Server config hash.
 
+Default value: ``undef``
+
+##### <a name="storage_config_hash"></a>`storage_config_hash`
+
+Data type: `Optional[Hash]`
+
+Storage config hash.
+
+Default value: ``undef``
+
+##### <a name="query_frontend_config_hash"></a>`query_frontend_config_hash`
+
+Data type: `Optional[Hash]`
+
+Query Frontend config hash.
+
+Default value: ``undef``
+
+##### <a name="querier_config_hash"></a>`querier_config_hash`
+
+Data type: `Optional[Hash]`
+
+Querier config hash.
 
 Default value: ``undef``
 
