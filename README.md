@@ -3,7 +3,7 @@
 [![](https://img.shields.io/puppetforge/pdk-version/attachmentgenie/tempo.svg?style=popout)](https://forge.puppetlabs.com/attachmentgenie/tempo)
 [![](https://img.shields.io/puppetforge/v/attachmentgenie/tempo.svg?style=popout)](https://forge.puppetlabs.com/attachmentgenie/tempo)
 [![](https://img.shields.io/puppetforge/dt/attachmentgenie/tempo.svg?style=popout)](https://forge.puppetlabs.com/attachmentgenie/tempo)
-[![](https://travis-ci.org/attachmentgenie/attachmentgenie-tempo.svg?branch=master)](https://travis-ci.org/attachmentgenie/attachmentgenie-tempo)
+[![Spec Tests](https://github.com/attachmentgenie/attachmentgenie-tempo/actions/workflows/spec.yml/badge.svg)](https://github.com/attachmentgenie/attachmentgenie-tempo/actions/workflows/spec.yml)
 [![License](https://img.shields.io/github/license/attachmentgenie/attachmentgenie-tempo?stype=popout)](https://github.com/attachmentgenie/attachmentgenie-tempo/blob/master/LICENSE)
 
 Deploy and configure tempo on a node.
@@ -24,7 +24,7 @@ Grafana Tempo is an open source, easy-to-use and high-scale distributed tracing 
 ## Usage
 
 All options and configuration can be done through interacting with the parameters
-on the main example class.
+on the main tempo class.
 These are now documented via [Puppet Strings](https://github.com/puppetlabs/puppet-strings)
 
 You can view example usage in [REFERENCE](REFERENCE.md).
