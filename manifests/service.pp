@@ -5,9 +5,11 @@ class tempo::service {
   if $::tempo::manage_service {
     case $::tempo::service_provider {
       'systemd': {
-        ::systemd::unit_file { "${::tempo::service_name}.service":
-          content => epp('tempo/tempo.service.epp'),
-          before  => Service['tempo'],
+        if $::tempo::manage_unit_file {
+          ::systemd::unit_file { "${::tempo::service_name}.service":
+            content => epp('tempo/tempo.service.epp'),
+            before  => Service['tempo'],
+          }
         }
       }
       default: {

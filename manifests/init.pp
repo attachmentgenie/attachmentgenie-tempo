@@ -49,6 +49,8 @@ class tempo (
   Optional[Hash] $compactor_config_hash = undef,
   Optional[Hash] $distributor_config_hash = undef,
   Optional[Hash] $ingester_config_hash = undef,
+  Boolean $manage_user = $install_method ? { 'archive' => true, 'package' => false },
+  Boolean $manage_unit_file = $install_method ? { 'archive' => true, 'package' => false },
   Optional[Hash] $memberlist_config_hash = undef,
   Optional[Hash] $server_config_hash = undef,
   Optional[Hash] $storage_config_hash = undef,
