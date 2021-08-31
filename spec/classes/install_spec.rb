@@ -26,7 +26,7 @@ describe 'tempo' do
         end
 
         it { is_expected.to contain_file('/opt/tempo/tempo').with_group('myspecialgroup') }
-        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz').with_group('myspecialgroup') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz').with_group('myspecialgroup') }
       end
 
       context 'with group set to myspecialgroup and install_method set to archive and manage_user set to true' do
@@ -40,7 +40,7 @@ describe 'tempo' do
         end
 
         it { is_expected.to contain_file('/opt/tempo/tempo').with_group('myspecialgroup').that_requires('Group[myspecialgroup]') }
-        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz').with_group('myspecialgroup') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz').with_group('myspecialgroup') }
       end
 
       context 'with group set to myspecialgroup and install_method set to archive and manage_user set to false' do
@@ -54,7 +54,7 @@ describe 'tempo' do
         end
 
         it { is_expected.to contain_file('/opt/tempo/tempo').with_group('myspecialgroup').that_requires(nil) }
-        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz').with_group('myspecialgroup') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz').with_group('myspecialgroup') }
       end
 
       context 'with bin_dir set to /opt/special' do
@@ -66,8 +66,8 @@ describe 'tempo' do
         end
 
         it { is_expected.to contain_file('/opt/special/tempo') }
-        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz').with_creates('/var/lib/tempo/tempo-1.0.0/tempo') }
-        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz').with_extract_path('/var/lib/tempo/tempo-1.0.0') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz').with_creates('/var/lib/tempo/tempo-1.1.0/tempo') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz').with_extract_path('/var/lib/tempo/tempo-1.1.0') }
       end
 
       context 'with data_dir set to /opt/special and manage_user set to true' do
@@ -93,7 +93,7 @@ describe 'tempo' do
           }
         end
 
-        it { is_expected.to contain_archive('/opt/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz') }
+        it { is_expected.to contain_archive('/opt/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz') }
         it { is_expected.not_to contain_package('tempo') }
       end
 
@@ -107,7 +107,7 @@ describe 'tempo' do
         end
 
         it { is_expected.not_to contain_file('/opt/tempo/tempo').that_comes_before('Archive[tempo archive]') }
-        it { is_expected.not_to contain_archive('/var/lib/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz') }
+        it { is_expected.not_to contain_archive('/var/lib/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz') }
         it { is_expected.to contain_package('tempo') }
       end
 
@@ -193,7 +193,7 @@ describe 'tempo' do
         end
 
         it { is_expected.to contain_file('/opt/tempo/tempo').with_owner('myspecialuser') }
-        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz').with_user('myspecialuser') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz').with_user('myspecialuser') }
       end
 
       context 'with user set to myspecialuser and install_method set to archive and manage_user set to true' do
@@ -207,7 +207,7 @@ describe 'tempo' do
         end
 
         it { is_expected.to contain_file('/opt/tempo/tempo').with_owner('myspecialuser').that_requires('User[myspecialuser]') }
-        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz').with_user('myspecialuser') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz').with_user('myspecialuser') }
       end
 
       context 'with user set to myspecialuser and install_method set to archive and manage_user set to false' do
@@ -221,7 +221,7 @@ describe 'tempo' do
         end
 
         it { is_expected.to contain_file('/opt/tempo/tempo').with_owner('myspecialuser').that_requires(nil) }
-        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.0.0/tempo_1.0.0_linux_amd64.tar.gz').with_user('myspecialuser') }
+        it { is_expected.to contain_archive('/var/lib/tempo/tempo-1.1.0/tempo_1.1.0_linux_amd64.tar.gz').with_user('myspecialuser') }
       end
     end
   end

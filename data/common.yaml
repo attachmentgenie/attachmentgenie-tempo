@@ -4,6 +4,7 @@ tempo::bin_dir: '/usr/local/bin'
 tempo::config_dir: '/etc/tempo'
 tempo::data_dir: '/var/lib/tempo'
 tempo::install_method: archive
+tempo::manage_service: true
 tempo::multitenancy_enabled: false
 tempo::multitenancy_key: 'multitenancy_enabled'
 tempo::package_name: 'tempo'
