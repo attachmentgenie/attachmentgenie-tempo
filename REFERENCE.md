@@ -60,6 +60,7 @@ The following parameters are available in the `tempo` class:
 * [`storage_config_hash`](#storage_config_hash)
 * [`query_frontend_config_hash`](#query_frontend_config_hash)
 * [`querier_config_hash`](#querier_config_hash)
+* [`manage_unit_file`](#manage_unit_file)
 
 ##### <a name="bin_dir"></a>`bin_dir`
 
@@ -102,6 +103,8 @@ Manage the tempo service.
 Data type: `Boolean`
 
 Manage tempo user and group.
+
+Default value: `$install_method`
 
 ##### <a name="package_name"></a>`package_name`
 
@@ -220,4 +223,12 @@ Data type: `Optional[Hash]`
 Querier config hash.
 
 Default value: ``undef``
+
+##### <a name="manage_unit_file"></a>`manage_unit_file`
+
+Data type: `Boolean`
+
+
+
+Default value: `$install_method`
 

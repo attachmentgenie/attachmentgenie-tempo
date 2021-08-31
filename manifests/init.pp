@@ -36,7 +36,6 @@ class tempo (
   String[1] $group,
   Enum['archive','package'] $install_method ,
   Boolean $manage_service,
-  Boolean $manage_user,
   Boolean $multitenancy_enabled,
   String[1] $multitenancy_key,
   String[1] $package_name,
