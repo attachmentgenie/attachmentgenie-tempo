@@ -3,11 +3,21 @@
 ---
 fixtures:
   forge_modules:
-    archive: 'puppet/archive'
-    concat: 'puppetlabs/concat'
-    promtail: 'grafana/promtail'
-    systemd: 'camptocamp/systemd'
-    stdlib: 'puppetlabs/stdlib'
+    archive:
+      repo: 'puppet/archive'
+      ref:  '4.2.0'
+    concat:
+      repo: 'puppetlabs/concat'
+      ref:  '6.0.0'
+    promtail:
+      repo: 'grafana/promtail'
+      ref:  '1.0.0'
+    systemd:
+      repo: 'camptocamp/systemd'
+      ref:  '2.0.0'
+    stdlib:
+      repo: 'puppetlabs/stdlib'
+      ref:  '4.25.0'
   repositories:
     facts: 'https://github.com/puppetlabs/puppetlabs-facts.git'
     puppet_agent: 'https://github.com/puppetlabs/puppetlabs-puppet_agent.git'
