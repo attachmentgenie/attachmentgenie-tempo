@@ -32,7 +32,7 @@ PUPPETCODE
     it { is_expected.to be_running.under('systemd') }
   end
 
-  describe port(3100) do
+  describe port(3200) do
     it { is_expected.to be_listening }
   end
 end

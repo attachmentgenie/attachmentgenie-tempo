@@ -14,4 +14,15 @@ tempo::service_provider: 'systemd'
 tempo::service_ensure: 'running'
 tempo::user: 'tempo'
 tempo::version: '1.1.0'
+tempo::server_config_hash:
+  server:
+    http_listen_port: 3200
+tempo::storage_config_hash:
+  storage:
+    trace:
+      backend: local
+      local:
+        path: '/var/lib/tempo'
+      wal:
+        path: '/var/lib/tempo/wal'
 ...
