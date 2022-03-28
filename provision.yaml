@@ -4,4 +4,4 @@ puppet5:
   images: ['litmusimage/centos:7','litmusimage/debian:9','litmusimage/debian:10','litmusimage/ubuntu:18.04']
 puppet6:
   provisioner: docker
-  images: ['litmusimage/centos:7','litmusimage/debian:9','litmusimage/debian:10','litmusimage/ubuntu:18.04','litmusimage/ubuntu:20.04']
+  images: ['litmusimage/centos:7','litmusimage/debian:9','litmusimage/debian:10','litmusimage/debian:11','litmusimage/ubuntu:18.04','litmusimage/ubuntu:20.04']
