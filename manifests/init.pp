@@ -56,9 +56,11 @@ class tempo (
   Optional[Hash] $query_frontend_config_hash = undef,
   Optional[Hash] $querier_config_hash = undef,
 ) {
-  anchor { 'tempo::begin': }
-  -> class{ '::tempo::install': }
-  -> class{ '::tempo::config': }
-  ~> class{ '::tempo::service': }
-  -> anchor { 'tempo::end': }
+  contain 'tempo::install'
+  contain 'tempo::config'
+  contain 'tempo::service'
+
+  Class['tempo::install']
+  -> Class['tempo::config']
+  ~> Class['tempo::service']
 }

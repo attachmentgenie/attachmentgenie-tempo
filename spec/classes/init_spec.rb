@@ -6,11 +6,9 @@ describe 'tempo' do
 
       context 'with defaults for all parameters' do
         it { is_expected.to contain_class('tempo') }
-        it { is_expected.to contain_anchor('tempo::begin').that_comes_before('Class[tempo::Install]') }
         it { is_expected.to contain_class('tempo::install').that_comes_before('Class[tempo::Config]') }
         it { is_expected.to contain_class('tempo::config').that_notifies('Class[tempo::Service]') }
-        it { is_expected.to contain_class('tempo::service').that_comes_before('Anchor[tempo::end]') }
-        it { is_expected.to contain_anchor('tempo::end') }
+        it { is_expected.to contain_class('tempo::service') }
         it { is_expected.to contain_group('tempo') }
         it { is_expected.to contain_file('/usr/local/bin/tempo') }
         it { is_expected.to contain_service('tempo') }

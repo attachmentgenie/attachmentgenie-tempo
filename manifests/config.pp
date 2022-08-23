@@ -11,7 +11,7 @@ class tempo::config {
     ensure => present,
   }
 
-  if $::tempo::manage_service {
+  if $tempo::manage_service {
     Concat[$config_file] {
       notify => Service['tempo'],
     }
