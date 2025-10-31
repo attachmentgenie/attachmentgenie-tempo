@@ -11,7 +11,10 @@
 # @param group Group that owns tempo files.
 # @param install_method How to install tempo.
 # @param manage_service Manage the tempo service.
+# @param manage_unit_file Manage the tempo service definition file.
 # @param manage_user Manage tempo user and group.
+# @param multitenancy_enabled Enable multi tenancy
+# @param multitenancy_key Key name
 # @param package_name Name of package to install.
 # @param package_version Version of tempo to install.
 # @param service_name Name of service to manage.
@@ -23,8 +26,6 @@
 # @param distributor_config_hash Distributor config hash.
 # @param ingester_config_hash Ingestor config hash.
 # @param memberlist_config_hash Memberlist config hash.
-# @param multitenancy_enabled Enable multi tenancy
-# @param multitenancy_key Key name
 # @param server_config_hash Server config hash.
 # @param storage_config_hash Storage config hash.
 # @param query_frontend_config_hash Query Frontend config hash.
@@ -36,6 +37,8 @@ class tempo (
   String[1] $group,
   Enum['archive','package'] $install_method ,
   Boolean $manage_service,
+  Boolean $manage_unit_file = $install_method ? { 'archive' => true, 'package' => false },
+  Boolean $manage_user = $install_method ? { 'archive' => true, 'package' => false },
   Boolean $multitenancy_enabled,
   String[1] $multitenancy_key,
   String[1] $package_name,
@@ -48,8 +51,6 @@ class tempo (
   Optional[Hash] $compactor_config_hash = undef,
   Optional[Hash] $distributor_config_hash = undef,
   Optional[Hash] $ingester_config_hash = undef,
-  Boolean $manage_user = $install_method ? { 'archive' => true, 'package' => false },
-  Boolean $manage_unit_file = $install_method ? { 'archive' => true, 'package' => false },
   Optional[Hash] $memberlist_config_hash = undef,
   Optional[Hash] $server_config_hash = undef,
   Optional[Hash] $storage_config_hash = undef,
